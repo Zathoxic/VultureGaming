@@ -16,10 +16,10 @@
 
 
             <ul class="nav nav-pills nav-stacked">
-                <li class="active"><a href="Index.php">Home<span class="sr-only">(current)</span></a></li>
+                <li><a href="Index.php">Home</a></li>
                 <li><a href="Players.php">Players</a></li>
                 <li><a href="Sponsors.php">Sponsors</a></li>
-                <li><a href="Form.php">Form</a></li>
+                <li class="active"><a href="Form.php">Form<span class="sr-only">(current)</span></a></li>
                 <li><a href="Help.php">Help and FAQ</a></li>
             </ul>
         </div>

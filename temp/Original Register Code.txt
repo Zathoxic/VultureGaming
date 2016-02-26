@@ -1,0 +1,83 @@
+<?php
+    
+    $conn = mysqli_connect("localhost", "root", "usbw", "vulturelogin"); 
+        //Evaluate the connection
+    if (mysqli_connect_errno()) {
+        echo mysql_connect_error();
+        exit();
+    }
+mysqli_select_db($conn, "vulturelogin") or die ("There was a problem connecting you to our database(s)");
+
+error_reporting(0);
+
+if ($_POST['register']){
+    if ($_POST['username'] && $_POST['password']){
+        $username = mysqli_real_escape_string($_POST['username']);
+        $password = mysqli_real_escape_string(hash("sha512", $_POST['password']));
+        $name = '';
+        if ($_POST['name']){
+            $name = mysqli_real_escape_string(strip_tags($_POST['name']));            
+        }
+        $check = mysqli_fetch_array(mysqli_query("SELECT * FROM `users ` WHERE `Username`='$username'"));
+        if ($check != '0'){
+            die("This username already exists! Try <i>$username" . rand(1, 50) . "</I> instead!<a href='register.php'>&larr; Back</a>");
+        }
+        if (!ctype_alnum($username)){
+            die("Username contains special characters! Only numbers and letters are allowd! <a href'register.php'>&larr; Back</a>");
+        }
+        if (strlen($username) > 20){
+            die("Username is too long! Try to keep it <u>UNDER</u> 20 characters! <a href='register.php'>&larr; Back</a>");
+        }
+        $salt = hash("sha512", rand() . rand() . rand());
+        mysqli_query("INSERT INTO `users` (`Username`, `Password`, `Name`, `Salt`) VALUES ('$username', '$password', '$name', '$salt')");
+        setcoockie("c_user", hash("sha512", $username), time() + 24 * 60 * 60, "/");
+        setcoockie("c_salt", $salt, time() + 24 * 60 * 60, "/");
+        die("Your account has been created and you are now logged in as $username!");
+    }
+}
+
+echo "
+
+<body style='font-family: veranda, sans-serif;'>
+    <div class='login' style='width: 45%; max-with: 50%; padding: 5px 5px 5px; border: 1px solid #e3e3e3; background-color: #fff; color:#000; margin-left: auto; margin-right: auto;'> 
+    
+    <h1 style='margin-left: 4%;'><b>Register</b></h1>
+    <br />
+        <form action='' method='post'>
+            <table>
+                <tr>
+                    <td>
+                        <b>Username:</b>
+                    </td>
+                    <td>
+                        <input type='text' name='username' style='padding: 4%;' />
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <b>Password:</b>
+                    </td>
+                    <td>
+                        <input type='password' name='password' style='padding: 4%' />
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <b>Name:</b>
+                    </td>
+                    <td>
+                        <input type='text' name='name' style='padding: 4%' />
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <input type='submit' name='register' value='Register' />
+                    </td>
+                </tr>
+            </table>
+        </form>
+    </div>
+</body>
+
+";
+?>

@@ -1,0 +1,65 @@
+<?php
+    
+    $conn = mysqli_connect("localhost", "root", "usbw") or die("There was a problem connecting you to our server(s)");
+    mysqli_select_db("vulturelogin", $conn) or die ("There was a problem connecting you to our database(s)");
+
+error_reporting(0);
+
+if ($_POST['login']){
+    if ($_POST['username'] && $_POST['password']){
+        $username = mysqli_real_escape_string($_POST['username']);
+        $password = mysqli_real_escape_string(hash("sha512", $_POST['password']));
+        $user = mysqli_fetch_array(mysqli_query("SELECT * FROM `users` WHERE `Username`='$username'"));
+        if ($user == '0'){
+            die("That username doesn't exist! Try making <i>$username</i> today! <a href='index.php'>&larr; Back</a>");
+        }
+        if ($user['Password'] != $password){
+            die("Incorrect password! <a href='index.php'>&larr; Back</a>");
+        }
+        $salt = hash("sha512", rand() . rand() . rand());
+        setcoockie("c_user", hash("sha512", $username), time() + 24 * 60 * 60, "/");
+        setcoockie("c_salt", $salt, time() + 24 * 60 * 60, "/");
+        $userID = $user['id'];
+        mysqli_query("UPDATE `users` SET `Salt`='$salt' WHERE `id`='$userID'");
+        die("You are now logged in as $username!");
+    }
+}
+
+echo "
+    <body style='font-family: veranda, sans-serif;'>
+    <div class='login' style='width: 45%; max-with: 50%; padding: 5px 5px 5px; border: 1px solid #e3e3e3; background-color: #fff; color:#000; margin-left: auto; margin-right: auto;'> 
+    
+    <h1><b>Login</b></h1>
+    <br />
+    <form action='' method='post'>
+        <table>
+            <tr>
+                <td>
+                    <b>Username:</b>
+                </td>
+                <td>
+                    <input type='text' name='username' style='padding: 4pxl;' />
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <b>Password:</b>
+                </td>
+                <td>
+                    <input type='password' name='password' style='padding: 4pxl' />
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <input type='submit' value='Login' name='login' />
+                </td>
+            </tr>
+        </table>
+    </form>
+    <h6>
+        No Account? <a href='register.php'>Register!</a>
+    </h6>
+    </div>
+</body>
+ ";
+?>
