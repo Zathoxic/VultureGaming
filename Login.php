@@ -1,7 +1,7 @@
 <?php
 
-    if(!empty($_POST['email']) && !empty($_POST['password'])):
-        echo $_POST['email'];
+    if(!empty($_POST['Email']) && !empty($_POST['Password'])):
+        echo $_POST['Email'];
         die();
 endif;
 
@@ -10,13 +10,15 @@ endif;
     <html lang="en">
 
     <head>
+        <link href="Css/bootstrap.min.css" type="text/css" rel="stylesheet">
+        <link href='https://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet' type='text/css'>
     </head>
 
     <body>
         <form action="" method="post">
 
-            <input type="text" placeholder="Enter your email here." name="Email">
-            <input type="password" placeholder="Enter your password here." name="Password">
+            <input type="text" placeholder="Email" name="Email">
+            <input type="password" placeholder="Password" name="Password">
 
             <input type="submit">
 
