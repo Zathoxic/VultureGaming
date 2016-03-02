@@ -14,7 +14,7 @@
             <?php
                 include 'Login.php'
             ?>
-                <p class="Register">Or <a href="Register.php"><b><u><i>REGISTER</i></u></b></a></p>
+                <p class="Register">Or <a href="Register.php"><b><u><i>register here</i></u></b></a></p>
         </div>
         <div class="LeftContent">
 

@@ -1,9 +1,6 @@
 <?php
 
-    if(!empty($_POST['Email']) && !empty($_POST['Password'])):
-        echo $_POST['Email'];
-        die();
-endif;
+require 'dbconnect.php';
 
 ?>
 

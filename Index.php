@@ -14,7 +14,7 @@
             <?php
                 include 'Login.php'
             ?>
-                <p class="Register">Or <a href="Register.php"><b><u><i>REGISTER</i></u></b></a></p>
+                <p class="Register">Or <a href="Register.php"><b><u><i>register here</i></u></b></a></p>
         </div>
         <div class="LeftContent">
 
@@ -23,9 +23,9 @@
 
 
                 <ul class="nav nav-pills nav-stacked">
-                    <li class="active"><a href="Index.php">Home<span class="sr-only">(current)</span></a></li>
+                    <li><a href="Index.php">Home</a></li>
                     <li><a href="Players.php">Players</a></li>
-                    <li><a href="Sponsors.php">Sponsors</a></li>
+                    <li class="active"><a href="Sponsors.php">Sponsors<span class="sr-only">(current)</span></a></li>
                     <li><a href="Form.php">Form</a></li>
                     <li><a href="Help.php">Help and FAQ</a></li>
                 </ul>
@@ -34,6 +34,7 @@
         <div class="RightContent">
 
         </div>
+    </div>
     </div>
 </body>
 
